@@ -1,4 +1,4 @@
-var config = require('../config')(process.env.NODE_ENV),
+var config = require('../build/config')(process.env.NODE_ENV),
 	express = require('express'),
 	app = express(),
 	swig = require('swig');

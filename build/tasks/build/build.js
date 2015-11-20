@@ -84,8 +84,14 @@ module.exports = function (gulp, config, $) {
 		var runSequence = require('run-sequence').use(gulp);
 
 		runSequence(
-			['sync', 'sass', 'babel'],
-			['test', 'vet'],
+			[
+				'sync',
+				'sass',
+				'babel'
+			],
+			[
+				'test',
+				'vet'],
 			callback
 		);
 	});

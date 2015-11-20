@@ -2,7 +2,7 @@
 
 var tests = [];
 for (var file in window.__karma__.files) {
-	console.info(file);
+	//console.info(file);
 	if (window.__karma__.files.hasOwnProperty(file)) {
 		if (/spec\.js$/.test(file)) {
 			file = file.replace(/^\/__karma__\/base\/dist\/modules\//, '').replace(/\.js$/, '');
@@ -10,7 +10,7 @@ for (var file in window.__karma__.files) {
 		}
 	}
 }
-console.info(['Tests', tests]);
+//console.info(['Tests', tests]);
 
 requirejs.config({
 	// Karma serves files from '/base'

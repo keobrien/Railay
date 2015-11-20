@@ -16,7 +16,6 @@ module.exports = function(config) {
         exclude: gulpConfig.karma.options.exclude,
 
         proxies: {
-			'/__karma__/base/dist/bower_components/': '/__karma__/base/bower_components/'
         },
 
 		urlRoot: '__karma__',

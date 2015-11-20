@@ -9,6 +9,7 @@ module.exports = function (environment) {
 
 	config.paths = {
 		base: base,
+		build: base + 'build/',
 		www: base + 'www/',
 		destination: base + 'dist/',
 		server: base + 'server/',
@@ -27,8 +28,9 @@ module.exports = function (environment) {
 
 	config.bower = {
 		bowerJson : require(base + 'bower.json'),
-		directory : base + 'bower_components/',
-		ignorePath: '..',
+		directory : config.paths.www + 'bower_components/',
+		distDir   : config.paths.destination + 'bower_components/',
+		ignorePath: '',
 		exclude: [].concat(
 			config.amd.bowerAMD
 		)
@@ -71,7 +73,8 @@ module.exports = function (environment) {
 	config.vet = {
 		js: {
 			sourceFiles: [
-				config.paths.www + '**/*.js'
+				config.paths.www + '**/*.js',
+				'!' + config.bower.directory + '**/*.js'
 				//, config.paths.base + 'tasks/**/*.js',
 				//, config.paths.server + '**/*.js'
 			]
@@ -97,16 +100,15 @@ module.exports = function (environment) {
 	 * karma settings
 	 */
 	config.karma = {
-		config: base + 'build/karma.conf.js',
+		config: config.paths.build + 'karma.conf.js',
 		exclude: [].concat(
-			//config.paths.destination + '**/*.es6*.js'
 		),
 		sourceFiles: [].concat(
 			config.paths.destination + '!(bower_components|modules)/**/!(*.spec)+(.js)',
-			{pattern: base + 'bower_components/**/!(*.spec)+(.js)', included: false},
+			{pattern: config.bower.distDir + '**/!(*.spec)+(.js)', included: false},
 			{pattern: config.paths.destination + 'modules/**/*.js', included: false},
-			base + 'build/karma.require.js',
-			base + 'dist/modules/config.js'
+			config.paths.build + 'karma.require.js',
+			config.paths.destination + 'modules/config.js'
 		),
 		coverageFiles: config.paths.destination + '!(bower_components)/**/!(*.spec)+(.js)'
 	};
