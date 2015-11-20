@@ -102,6 +102,7 @@ module.exports = function (environment) {
 	config.karma = {
 		config: config.paths.build + 'karma.conf.js',
 		exclude: [].concat(
+			config.paths.destination + 'scripts/lib.js'
 		),
 		sourceFiles: [].concat(
 			config.paths.destination + '!(bower_components|modules)/**/!(*.spec)+(.js)',

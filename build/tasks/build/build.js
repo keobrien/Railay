@@ -79,15 +79,28 @@ module.exports = function (gulp, config, $) {
 		);
 	});
 
+	gulp.task('build-test-dev', function (callback) {
+
+		var runSequence = require('run-sequence').use(gulp);
+
+		runSequence(
+			[
+				'build-dev'
+			],
+			[
+				'test',
+				'vet'],
+			callback
+		);
+	});
+
 	gulp.task('build-test', function (callback) {
 
 		var runSequence = require('run-sequence').use(gulp);
 
 		runSequence(
 			[
-				'sync',
-				'sass',
-				'babel'
+				'build-dist'
 			],
 			[
 				'test',

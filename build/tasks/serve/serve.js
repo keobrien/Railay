@@ -45,7 +45,7 @@ module.exports = function (gulp, config, $) {
 
 		runSequence(
 			['watch-build-test'],
-			['serve-dev-start'],
+			['serve-start'],
 			callback
 		);
 	});
