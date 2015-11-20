@@ -3,7 +3,7 @@
 module.exports = function (environment) {
 
 	var wiredep = require('wiredep');
-	var base    = __dirname + '/';
+	var base    = __dirname + '/../';
 
 	var config = {};
 
@@ -97,15 +97,16 @@ module.exports = function (environment) {
 	 * karma settings
 	 */
 	config.karma = {
-		config: base + 'karma.conf.js',
+		config: base + 'build/karma.conf.js',
 		exclude: [].concat(
 			//config.paths.destination + '**/*.es6*.js'
 		),
 		sourceFiles: [].concat(
-			{pattern: config.bower.directory + '**/*.js', included: false},
 			config.paths.destination + '!(bower_components|modules)/**/!(*.spec)+(.js)',
+			{pattern: base + 'bower_components/**/!(*.spec)+(.js)', included: false},
 			{pattern: config.paths.destination + 'modules/**/*.js', included: false},
-			base + 'karma.require.js'
+			base + 'build/karma.require.js',
+			base + 'dist/modules/config.js'
 		),
 		coverageFiles: config.paths.destination + '!(bower_components)/**/!(*.spec)+(.js)'
 	};

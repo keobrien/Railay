@@ -3,7 +3,7 @@ module.exports = function(config) {
 
     config.set({
         // base path that will be used to resolve all patterns (eg. files, exclude)
-        basePath: './',
+        basePath: '../',
 
         // frameworks to use
         // some available frameworks: https://npmjs.org/browse/keyword/karma-adapter
@@ -16,10 +16,10 @@ module.exports = function(config) {
         exclude: gulpConfig.karma.options.exclude,
 
         proxies: {
-			'/base/dist/bower_components/': '/base/bower_components/'
+			'/__karma__/base/dist/bower_components/': '/__karma__/base/bower_components/'
         },
 
-		//urlRoot: '__karma__',
+		urlRoot: '__karma__',
 
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
