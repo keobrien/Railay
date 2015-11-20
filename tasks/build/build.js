@@ -6,37 +6,60 @@ module.exports = function (gulp, config, $) {
 		var runSequence = require('run-sequence').use(gulp);
 
 		runSequence(
-			['del-dist'],
-			['copy-src-to-dist'],
-			['sass', 'babel'],
+			['sync', 'sass', 'babel'],
 			callback
 		);
 	});
 
 	gulp.task('build-dist-final', function () {
-		var assets = $.useref.assets({searchPath: ['.']});
+		//var usemin = require('gulp-usemin');
+		//var uglify = require('gulp-uglify');
+		//var minifyCss = require('gulp-minify-css');
+		//var sourcemaps = require('gulp-sourcemaps');
+		//
+		//return gulp.src(config.build.src)
+		//	.pipe(usemin({
+		//		assetsDir: './dist',
+		//		path: './dist',
+		//		js: [
+		//			sourcemaps.init({
+		//				loadMaps: true
+		//			}),
+		//			'concat',
+		//			uglify,
+		//			sourcemaps.write()
+		//		]
+		//	}))
+		//	.pipe(gulp.dest(config.paths.destination));
+
+		var assets = $.useref.assets({searchPath: ['.', 'dist']});
 		var cssFilter = $.filter(['**/*.css']);
 		var jsFilter = $.filter('**/*.js');
 		var cache = require('gulp-cached');
+		var minifyCss = require('gulp-minify-css');
+		var uglify = require('gulp-uglify');
 		var remember = require('gulp-remember');
 		var sourcemaps = require('gulp-sourcemaps');
+		var gulpIf = require('gulp-if');
 		return gulp
 			.src(config.build.src)
 			//.pipe($.print())
 			.pipe(assets)
-			.pipe($.print())
-			.pipe(sourcemaps.init())
+			//.pipe($.print())
+			.pipe(sourcemaps.init({loadMaps: true}))
 			.pipe(cache('compile-assets'))
-			.pipe(cssFilter)
+			.pipe(gulpIf('*.css', minifyCss()))
+			.pipe(gulpIf('*.js', uglify()))
+			//.pipe(cssFilter)
 			//.pipe(remember('styles'))
-			//.pipe($.print())
-			.pipe($.minifyCss())
-			.pipe(cssFilter.restore())
-			.pipe(jsFilter)
-			//.pipe($.print())
+			////.pipe($.print())
+			//.pipe($.minifyCss())
+			//.pipe(cssFilter.restore())
+			//.pipe(jsFilter)
+			////.pipe($.print())
 			//.pipe(remember('scripts'))
-			.pipe($.uglify())
-			.pipe(jsFilter.restore())
+			//.pipe($.uglify())
+			//.pipe(jsFilter.restore())
 			.pipe(assets.restore())
 			.pipe(remember('compile-assets'))
 			//.pipe($.print())
@@ -50,10 +73,8 @@ module.exports = function (gulp, config, $) {
 		var runSequence = require('run-sequence').use(gulp);
 
 		runSequence(
-			['del-dist'],
-			['copy-src-to-dist'],
-			['sass', 'babel'],
-			'build-dist-final',
+			['sync', 'sass', 'babel'],
+			['build-dist-final'],
 			callback
 		);
 	});
@@ -63,27 +84,69 @@ module.exports = function (gulp, config, $) {
 		var runSequence = require('run-sequence').use(gulp);
 
 		runSequence(
-			['build-dev'],
+			['sync', 'sass', 'babel'],
 			['test', 'vet'],
 			callback
 		);
 	});
 
+	gulp.task('sync', function (callback) {
+		var dirSync = require( 'gulp-directory-sync' );
+		return gulp.src( '' )
+			.pipe(dirSync( config.paths.www, config.paths.destination, {
+				printSummary: true,
+				ignore: [ /.*\.min\.css$/, /.*\.map/ ]
+			} ))
+	});
+
+	gulp.task('sync-rebuild', function (callback) {
+		var dirSync = require( 'gulp-directory-sync' );
+		return gulp.src( '' )
+			.pipe(dirSync( config.paths.www, config.paths.destination, {
+				printSummary: true,
+				ignore: []
+			} ))
+	});
+
 	var watchedFiles = [
-		config.paths.www + config.js.sourceFiles,
-		config.paths.www + config.swig.sourceFiles
+		config.paths.www + '**/*'
 	];
+
 	gulp.task('watch-build-dev', ['build-dev'], function () {
-		gulp.watch(config.paths.www + config.sass.sourceFiles, ['sass']);
-		return gulp.watch(watchedFiles, ['build-dev']);
+		var runSequence = require('run-sequence').use(gulp);
+		var watch = require('gulp-watch');
+
+		watch(watchedFiles, function(file){
+			runSequence(
+				['build-dev']
+			);
+		});
+
+		return gulp;
 	});
 	gulp.task('watch-build-test', ['build-test'], function () {
-		gulp.watch(config.paths.www + config.sass.sourceFiles, ['sass']);
-		return gulp.watch(watchedFiles, ['build-test']);
+		var runSequence = require('run-sequence').use(gulp);
+		var watch = require('gulp-watch');
+
+		watch(watchedFiles, function(file){
+			runSequence(
+				['build-test']
+			);
+		});
+
+		return gulp;
 	});
 	gulp.task('watch-build-dist', ['build-dist'], function () {
-		gulp.watch(config.paths.www + config.sass.sourceFiles, ['sass']);
-		return gulp.watch(watchedFiles, ['build-dist']);
+		var runSequence = require('run-sequence').use(gulp);
+		var watch = require('gulp-watch');
+
+		watch(watchedFiles, function(file){
+			runSequence(
+				['build-dist']
+			);
+		});
+
+		return gulp;
 	});
 
 };
