@@ -1,8 +1,9 @@
 'use strict';
 
-module.exports = function (gulp, config, $) {
+module.exports = function (gulp, config) {
 	gulp.task('sass', function (callback) {
 
+		var minifyCss = require('gulp-minify-css');
 		var sass = require('gulp-sass');
 		var sourcemaps = require('gulp-sourcemaps');
 		var cache = require('gulp-cached');
@@ -16,7 +17,7 @@ module.exports = function (gulp, config, $) {
 			//.pipe($.newer(config.sass.destination))
 			.pipe(sass().on('error', sass.logError))
 			//.pipe(remember('compile-sass'))
-			.pipe($.minifyCss())
+			.pipe(minifyCss())
 			.pipe(rename({
 				suffix: '.min'
 			}))

@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (gulp, config, $) {
+module.exports = function (gulp, config) {
 
 	var sourcemaps = require('gulp-sourcemaps');
 	var babel = require('gulp-babel');

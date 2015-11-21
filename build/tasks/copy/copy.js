@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (gulp, config, $) {
+module.exports = function (gulp, config) {
 	gulp.task('copy-src-to-tmp', function () {
 		return gulp.src(config.paths.www + '**/*')
 			.pipe(gulp.dest(config.paths.tmp));

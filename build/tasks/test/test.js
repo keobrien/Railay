@@ -2,7 +2,7 @@
 
 var Server = require('karma').Server;
 
-module.exports = function (gulp, config, $) {
+module.exports = function (gulp, config) {
 
 	/**
 	 * Run specs once and exit

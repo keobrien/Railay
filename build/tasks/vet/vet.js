@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (gulp, config, $) {
+module.exports = function (gulp, config) {
 	gulp.task('vet', function () {
 		var eslint = require('gulp-eslint');
 

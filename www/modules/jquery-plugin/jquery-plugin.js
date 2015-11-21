@@ -25,12 +25,12 @@
 		// Shared settings should not be overwritten.
 		// They are conventions shared across all plugins.
 		var sharedSettings = {
-			plugin_name     : pluginName,                     // Used for name spacing and registering plugin
-			jquery_name     : 'cw_' + pluginName,             // Used for registering with jQuery
-			data_key        : 'cw_' + pluginName + '-options',// Namespace plugin data
-			event_suffix    : '.cw.' + pluginName,            // Namespace events
-			data_attr_prefix: 'data-cw-' + pluginName + '-',  // Use this to make all html attributes consistent
-			css_prefix      : 'cw-' + pluginName + '-'        // Use this to make all css classes consistent
+			plugin_name     : pluginName,                      // Used for name spacing and registering plugin
+			jquery_name     : 'cw_' + pluginName,              // Used for registering with jQuery
+			data_key        : 'cw_' + pluginName + '-options', // Namespace plugin data
+			event_suffix    : '.cw.' + pluginName,             // Namespace events
+			data_attr_prefix: 'data-cw-' + pluginName + '-',   // Use this to make all html attributes consistent
+			css_prefix      : 'cw-' + pluginName + '-'         // Use this to make all css classes consistent
 		};
 
 		var settings = {

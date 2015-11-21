@@ -1,12 +1,13 @@
 'use strict';
 
-module.exports = function (gulp, config, $) {
+module.exports = function (gulp, config) {
 
 	gulp.task('serve-dev-start', function (callback) {
 
 		var started = false;
+		var nodemon = require('gulp-nodemon');
 
-		return $.nodemon({
+		return nodemon({
 				script: config.serve.index,
 				ext   : 'js',
 				ignore: [],
@@ -53,8 +54,9 @@ module.exports = function (gulp, config, $) {
 	gulp.task('serve-start', function (callback) {
 
 		var started = false;
+		var nodemon = require('gulp-nodemon');
 
-		return $.nodemon({
+		return nodemon({
 				script: config.serve.index,
 				ext   : 'js',
 				ignore: [],

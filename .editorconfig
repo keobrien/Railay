@@ -25,6 +25,9 @@ spaces_around_brackets = both
 indent_brace_style = 1TBS
 continuation_indent_size = 4
 
+[*.json]
+indent_style = tab
+
 [*.sass]
 indent_style = tab
 

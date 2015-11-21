@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (gulp, config, $) {
+module.exports = function (gulp, config) {
 
 	gulp.task('build-dev', function (callback) {
 		var runSequence = require('run-sequence').use(gulp);
@@ -12,9 +12,11 @@ module.exports = function (gulp, config, $) {
 	});
 
 	gulp.task('build-useref', function () {
-		var assets = $.useref.assets({searchPath: ['.', 'dist']});
-		var cssFilter = $.filter(['**/*.css']);
-		var jsFilter = $.filter('**/*.js');
+		var useref = require('gulp-useref');
+		var filter = require('gulp-filter');
+		var assets = useref.assets({searchPath: ['.', 'dist']});
+		var cssFilter = filter(['**/*.css']);
+		var jsFilter = filter('**/*.js');
 		var cache = require('gulp-cached');
 		var minifyCss = require('gulp-minify-css');
 		var uglify = require('gulp-uglify');
@@ -43,25 +45,26 @@ module.exports = function (gulp, config, $) {
 			.pipe(assets.restore())
 			.pipe(remember('compile-assets'))
 			//.pipe($.print())
-			.pipe($.useref())
+			.pipe(useref())
 			.pipe(sourcemaps.write(config.build.maps))
 			.pipe(gulp.dest(config.paths.destination));
 	});
 
 	gulp.task('build-modules', function () {
-		var assets = $.useref.assets({searchPath: ['.', 'dist']});
-		var cssFilter = $.filter(['**/*.css']);
-		var jsFilter = $.filter('**/*.js');
+		var useref = require('gulp-useref');
+		var filter = require('gulp-filter');
 		var cache = require('gulp-cached');
-		var minifyCss = require('gulp-minify-css');
 		var uglify = require('gulp-uglify');
 		var remember = require('gulp-remember');
 		var sourcemaps = require('gulp-sourcemaps');
 		var gulpIf = require('gulp-if');
+
 		return gulp
 			.src(config.paths.destination + 'modules/**/*.js')
+			.pipe(cache('modules'))
 			.pipe(sourcemaps.init({loadMaps: true}))
 			.pipe(gulpIf('*.js', uglify()))
+			.pipe(remember('modules'))
 			.pipe(sourcemaps.write(config.build.maps))
 			.pipe(gulp.dest(config.paths.destination + 'modules/'));
 	});

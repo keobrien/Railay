@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (gulp, config, $) {
+module.exports = function (gulp, config) {
 
 	gulp.task('del-dist', function (callback) {
 		var del = require('del');
