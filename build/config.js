@@ -2,9 +2,7 @@
 
 module.exports = function (environment) {
 
-	var wiredep = require('wiredep');
 	var base    = __dirname + '/../';
-
 	var config = {};
 
 	config.paths = {
@@ -102,7 +100,7 @@ module.exports = function (environment) {
 	config.karma = {
 		config: config.paths.build + 'karma.conf.js',
 		exclude: [].concat(
-			config.paths.destination + 'scripts/lib.js'
+			config.paths.destination + 'modules/bower/**'
 		),
 		sourceFiles: [].concat(
 			config.paths.destination + '!(bower_components|modules)/**/!(*.spec)+(.js)',

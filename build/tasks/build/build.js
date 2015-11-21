@@ -11,27 +11,7 @@ module.exports = function (gulp, config, $) {
 		);
 	});
 
-	gulp.task('build-dist-final', function () {
-		//var usemin = require('gulp-usemin');
-		//var uglify = require('gulp-uglify');
-		//var minifyCss = require('gulp-minify-css');
-		//var sourcemaps = require('gulp-sourcemaps');
-		//
-		//return gulp.src(config.build.src)
-		//	.pipe(usemin({
-		//		assetsDir: './dist',
-		//		path: './dist',
-		//		js: [
-		//			sourcemaps.init({
-		//				loadMaps: true
-		//			}),
-		//			'concat',
-		//			uglify,
-		//			sourcemaps.write()
-		//		]
-		//	}))
-		//	.pipe(gulp.dest(config.paths.destination));
-
+	gulp.task('build-useref', function () {
 		var assets = $.useref.assets({searchPath: ['.', 'dist']});
 		var cssFilter = $.filter(['**/*.css']);
 		var jsFilter = $.filter('**/*.js');
@@ -68,28 +48,35 @@ module.exports = function (gulp, config, $) {
 			.pipe(gulp.dest(config.paths.destination));
 	});
 
+	gulp.task('build-modules', function () {
+		var assets = $.useref.assets({searchPath: ['.', 'dist']});
+		var cssFilter = $.filter(['**/*.css']);
+		var jsFilter = $.filter('**/*.js');
+		var cache = require('gulp-cached');
+		var minifyCss = require('gulp-minify-css');
+		var uglify = require('gulp-uglify');
+		var remember = require('gulp-remember');
+		var sourcemaps = require('gulp-sourcemaps');
+		var gulpIf = require('gulp-if');
+		return gulp
+			.src(config.paths.destination + 'modules/**/*.js')
+			.pipe(sourcemaps.init({loadMaps: true}))
+			.pipe(gulpIf('*.js', uglify()))
+			.pipe(sourcemaps.write(config.build.maps))
+			.pipe(gulp.dest(config.paths.destination + 'modules/'));
+	});
+
 	gulp.task('build-dist', function (callback) {
 
 		var runSequence = require('run-sequence').use(gulp);
 
 		runSequence(
 			['sync', 'sass', 'babel'],
-			['build-dist-final'],
-			callback
-		);
-	});
-
-	gulp.task('build-test-dev', function (callback) {
-
-		var runSequence = require('run-sequence').use(gulp);
-
-		runSequence(
 			[
-				'build-dev'
+				'build-modules',
+				'build-useref'
 			],
-			[
-				'test',
-				'vet'],
+			'requirejs',
 			callback
 		);
 	});
@@ -100,11 +87,12 @@ module.exports = function (gulp, config, $) {
 
 		runSequence(
 			[
-				'build-dist'
+				'build-dev'
 			],
 			[
 				'test',
-				'vet'],
+				'vet'
+			],
 			callback
 		);
 	});

@@ -26,13 +26,20 @@ requirejs.config({
 	},
 	paths: {
 		bower: '../bower_components',
-		jquery: '../bower_components/jquery/dist/jquery',
-		requirejs: '../bower_components/requirejs/require',
-		angular: '../bower_components/angular/angular',
-		'angular-ui-router': '../bower_components/angular-ui-router/release/angular-ui-router',
+		jquery: '../bower_components/jquery/dist/jquery.min',
+		angular: '../bower_components/angular/angular.min',
+		'angular-ui-router': '../bower_components/angular-ui-router/release/angular-ui-router.min',
 		'angular-mocks': '../bower_components/angular-mocks/angular-mocks'
 	},
-	packages: [
-
+	modules: [
+		{
+			name: 'main'
+			//, include: [
+			//	'angular-example/app'
+			//]
+		},
+		{
+			name: 'angular-example/app'
+		}
 	]
 });

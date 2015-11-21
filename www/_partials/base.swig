@@ -17,8 +17,7 @@
 <body>
 	{% block body-top %}{% endblock %}
 	{% block body-content %}{% endblock %}
-	<!-- build:js /scripts/lib.js -->
-		<script src="/bower_components/jquery/dist/jquery.js"></script>
+	<!-- build:js /assets/es6-example/example.es6.min.js -->
 		<script src="/assets/es6-example/example.es6.js"></script>
 	<!-- endbuild -->
 	{% block js-foot-page-specific %}{% endblock %}

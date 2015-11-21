@@ -1,18 +1,24 @@
 'use strict';
 
 module.exports = function (gulp, config, $) {
+	gulp.task( 'requirejs', function ( cb ) {
+		var rjs = require('requirejs');
 
-	var requirejsOptimize = require('gulp-requirejs-optimize');
-	var sourcemaps = require('gulp-sourcemaps');
+		var config = {
+			mainConfigFile: 'dist/modules/config.js',
+			baseUrl: 'dist/modules/',
+			dir: 'dist/modules/',
+			//include: ['main'],
+			optimize: "none",
+			optimizeCss: "none",
+			findNestedDependencies: true,
+			wrapShim: true,
+			allowSourceOverwrites: true,
+			keepBuildDir: true
+		};
 
-	gulp.task('requirejs-optimize', function () {
-		return gulp.src(config.paths.destination + config.amd.main)
-			.pipe(sourcemaps.init())
-			.pipe(requirejsOptimize({
-				baseUrl: config.paths.destination + config.amd.baseUrl
-			}))
-			.pipe(sourcemaps.write(config.amd.maps))
-			.pipe(gulp.dest(config.paths.destination + config.amd.baseUrl));
+		rjs.optimize( config, function( buildResponse ) {
+			cb();
+		}, cb );
 	});
-
 };
