@@ -8,8 +8,6 @@
   },
   "devDependencies": {
     "bower": "^1.5.2",
-    "bower-requirejs": "^1.2.0",
-    "del": "^1.2.1",
     "gulp": "^3.8.10",
     "gulp-babel": "^5.2.1",
     "gulp-bower": "0.0.11",

@@ -7,7 +7,6 @@ require('./build/tasks/copy/copy.js')(gulp, config);
 require('./build/tasks/vet/vet.js')(gulp, config);
 require('./build/tasks/test/test.js')(gulp, config);
 require('./build/tasks/sass/sass.js')(gulp, config);
-require('./build/tasks/delete/delete.js')(gulp, config);
 require('./build/tasks/babel/babel.js')(gulp, config);
 require('./build/tasks/requirejs/requirejs.js')(gulp, config);
 require('./build/tasks/build/build.js')(gulp, config);

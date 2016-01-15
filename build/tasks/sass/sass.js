@@ -6,14 +6,12 @@ module.exports = function (gulp, config) {
 		var minifyCss = require('gulp-minify-css');
 		var sass = require('gulp-sass');
 		var sourcemaps = require('gulp-sourcemaps');
-		var cache = require('gulp-cached');
 		var remember = require('gulp-remember');
 		var rename = require('gulp-rename');
 
 		return gulp.src(config.sass.sourceFiles)
 			//.pipe($.print())
 			.pipe(sourcemaps.init())
-			//.pipe(cache('compile-sass'))
 			//.pipe($.newer(config.sass.destination))
 			.pipe(sass().on('error', sass.logError))
 			//.pipe(remember('compile-sass'))
