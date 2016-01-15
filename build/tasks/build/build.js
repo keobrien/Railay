@@ -6,7 +6,8 @@ module.exports = function (gulp, config) {
 		var runSequence = require('run-sequence').use(gulp);
 
 		runSequence(
-			['sync', 'sass', 'babel'],
+			['sync', 'sass'],
+			'babel',
 			callback
 		);
 	});
@@ -69,12 +70,13 @@ module.exports = function (gulp, config) {
 			.pipe(gulp.dest(config.paths.destination + 'modules/'));
 	});
 
-	gulp.task('build-dist', function (callback) {
+	gulp.task('build-prod', function (callback) {
 
 		var runSequence = require('run-sequence').use(gulp);
 
 		runSequence(
-			['sync', 'sass', 'babel'],
+			['sync', 'sass'],
+			'babel',
 			[
 				'build-modules',
 				'build-useref'
@@ -146,13 +148,13 @@ module.exports = function (gulp, config) {
 
 		return gulp;
 	});
-	gulp.task('watch-build-dist', ['build-dist'], function () {
+	gulp.task('watch-build-prod', ['build-prod'], function () {
 		var runSequence = require('run-sequence').use(gulp);
 		var watch = require('gulp-watch');
 
 		watch(watchedFiles, function(file){
 			runSequence(
-				['build-dist']
+				['build-prod']
 			);
 		});
 

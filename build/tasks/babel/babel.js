@@ -6,11 +6,11 @@ module.exports = function (gulp, config) {
 	var babel = require('gulp-babel');
 
 	gulp.task('babel', function () {
-		return gulp.src(config.paths.destination + config.es6.sourceFiles)
+		return gulp.src(config.js.transpile.sourceFiles)
 			.pipe(sourcemaps.init())
 			.pipe(babel())
-			.pipe(sourcemaps.write(config.es6.maps))
-			.pipe(gulp.dest(config.es6.destination));
+			.pipe(sourcemaps.write(config.js.transpile.maps))
+			.pipe(gulp.dest(config.js.transpile.destination));
 	});
 
 };

@@ -35,13 +35,15 @@ module.exports = function (environment) {
 	};
 
 	config.js = {
-		sourceFiles: '**/*.js'
-	};
-
-	config.es6 = {
-		sourceFiles: '**/*.es6*.js',
-		maps: config.paths.maps,
-		destination: config.paths.destination
+		sourceFiles: '**/*.js',
+		transpile: {
+			sourceFiles: [
+				config.paths.destination + '**/*.es6*.js',
+				config.paths.destination + '**/*.jsx'
+			],
+			maps: config.paths.maps,
+			destination: config.paths.destination
+		}
 	};
 
 	config.node = {

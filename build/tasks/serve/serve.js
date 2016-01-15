@@ -79,12 +79,12 @@ module.exports = function (gulp, config) {
 
 	});
 
-	gulp.task('serve-dist', function () {
+	gulp.task('serve-prod', function () {
 
 		var runSequence = require('run-sequence').use(gulp);
 
 		runSequence(
-			'watch-build-dist',
+			'watch-build-prod',
 			'serve-start'
 		);
 	});
