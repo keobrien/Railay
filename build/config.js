@@ -51,7 +51,9 @@ module.exports = function (environment) {
 	};
 
 	config.sass = {
-		sourceFiles: '**/*.scss',
+		sourceFiles: [
+			config.paths.destination + '**/*.scss'
+		],
 		maps: config.paths.maps,
 		destination: config.paths.destination
 	};
@@ -79,6 +81,14 @@ module.exports = function (environment) {
 				//, config.paths.server + '**/*.js'
 			]
 		}
+	};
+
+	config.railay = {
+		sync: {
+			sourceFiles: config.paths.build + 'tasks/test-railay-build/files-for-sync',
+			destination: config.paths.destination
+		},
+		bower: config.paths.build + 'tasks/test-railay-build/files-for-sync/test-railay'
 	};
 
 	switch (environment) {

@@ -29,6 +29,16 @@ module.exports = function (gulp, config) {
 			});
 	});
 
+	gulp.task('serve', function (callback) {
+
+		var runSequence = require('run-sequence').use(gulp);
+
+		return runSequence(
+			'serve-dev-start',
+			callback
+		);
+	});
+
 	gulp.task('serve-dev', function (callback) {
 
 		var runSequence = require('run-sequence').use(gulp);

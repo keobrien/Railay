@@ -18,7 +18,7 @@
 	{% block body-top %}{% endblock %}
 	{% block body-content %}{% endblock %}
 	<!-- build:js /assets/es6-example/example.es6.min.js -->
-		<script src="/assets/es6-example/example.es6.js"></script>
+		<script src="/es6-example/example.es6.js"></script>
 	<!-- endbuild -->
 	{% block js-foot-page-specific %}{% endblock %}
 </body>

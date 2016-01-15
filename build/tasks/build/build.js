@@ -6,7 +6,8 @@ module.exports = function (gulp, config) {
 		var runSequence = require('run-sequence').use(gulp);
 
 		runSequence(
-			['sync', 'sass'],
+			'sync',
+			'sass',
 			'babel',
 			callback
 		);
@@ -75,7 +76,8 @@ module.exports = function (gulp, config) {
 		var runSequence = require('run-sequence').use(gulp);
 
 		runSequence(
-			['sync', 'sass'],
+			'sync',
+			'sass',
 			'babel',
 			[
 				'build-modules',

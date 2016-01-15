@@ -10,7 +10,7 @@ module.exports = function (gulp, config) {
 		var remember = require('gulp-remember');
 		var rename = require('gulp-rename');
 
-		return gulp.src(config.paths.www + config.sass.sourceFiles)
+		return gulp.src(config.sass.sourceFiles)
 			//.pipe($.print())
 			.pipe(sourcemaps.init())
 			//.pipe(cache('compile-sass'))

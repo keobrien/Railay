@@ -12,6 +12,7 @@ require('./build/tasks/babel/babel.js')(gulp, config);
 require('./build/tasks/requirejs/requirejs.js')(gulp, config);
 require('./build/tasks/build/build.js')(gulp, config);
 require('./build/tasks/serve/serve.js')(gulp, config);
+require('./build/tasks/test-railay-build/test-railay-build.js')(gulp, config);
 
 gulp.task('default', ['serve-dev']);
 
