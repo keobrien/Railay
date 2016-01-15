@@ -1,0 +1,5 @@
+{% extends 'templates/base.nunj' %}
+
+{% block bodyContent %}
+	<h1>Hello World</h1>
+{% endblock %}

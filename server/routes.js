@@ -1,18 +1,18 @@
-var swig = require('swig'),
-    fs   = require('fs');
-
-var _403Forbidden = [
-	'*.swig'
-];
-
 module.exports = function (app, express, config) {
 
-	app.engine('swig', swig.renderFile);
-	app.set('view engine', 'swig');
-	app.set('view cache', true);
-	app.set('views', process.cwd() + '/' + config.server.www_root + '/');
-	swig.setDefaults({cache: false});
-	swig.setDefaults({loader: swig.loaders.fs(process.cwd() + '/' + config.server.www_root + '/')});
+	var nunjucks = require('nunjucks');
+	var fs = require('fs');
+	var _403Forbidden = [
+		'*.nunj'
+	];
+
+	app.set('views', config.server.www_root);
+	nunjucks.configure(app.get('views'), {
+		autoescape: true,
+		express   : app,
+		noCache   : true
+	});
+	app.set('view engine', 'nunj');
 
 	app.get(_403Forbidden, function (req, res) {
 		res.status(403);
@@ -31,7 +31,7 @@ module.exports = function (app, express, config) {
 			var stats = fs.lstatSync(fsPath);
 
 			if (stats.isDirectory) {
-				res.render(fsPath + 'index.swig');
+				res.render(fsPath + 'index.nunj');
 			} else if (stats.isFile && (path.indexOf(/\.html$/) > 0)) {
 				res.render(fsPath);
 			}

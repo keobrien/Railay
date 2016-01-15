@@ -6,6 +6,6 @@
 	<script data-main="/modules/main.js" src="/bower_components/requirejs/require.js"></script>
 </head>
 <body>
-	{% block body-content %}{% endblock %}
+	{% block bodyContent %}{% endblock %}
 </body>
 </html>
